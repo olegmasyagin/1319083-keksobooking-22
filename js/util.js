@@ -31,4 +31,17 @@ const getRandomАrr = function (array) {
   return newArr;
 }
 
-export {getRandomNumber, getRandomFloatPoint, getRandomArrElement, getRandomАrr};
+const createElement = function (tagName, className, modifier, source) {
+  const element = document.createElement(tagName);
+  element.classList.add(className);
+  if(modifier) {
+    element.classList.add(modifier);
+  }
+  if(source) {
+    element.src = source;
+  }
+
+  return element;
+}
+
+export {getRandomNumber, getRandomFloatPoint, getRandomArrElement, getRandomАrr, createElement};

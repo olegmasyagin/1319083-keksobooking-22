@@ -1,4 +1,6 @@
 import { createArrayAds } from './create-array-ads.js';
+import { createElement } from '/util.js';
+
 
 const similarAds = createArrayAds();
 const cardList = document.querySelector('.map__canvas');
@@ -63,7 +65,7 @@ similarAds.forEach(({offer, author}) => {
     for(let i = 0; i < offer.features.length; i++){
       const feature = document.createElement('li');
       feature.classList.add('popup__feature');
-      feature.classList.add('popup__feature--${offer.features[i]}');
+      feature.classList.add(`popup__feature--${offer.features[i]}`);
       popupFeatures.appendChild(feature);
     }
   }else{
@@ -109,9 +111,6 @@ const renderPopup = function (numberCard) {
 }
 
 renderPopup(0);
-
-
-
 
 
 
