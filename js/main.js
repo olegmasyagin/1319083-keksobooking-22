@@ -1,1 +1,1 @@
-import './create-array-ads.js';
+import './render-popup.js';

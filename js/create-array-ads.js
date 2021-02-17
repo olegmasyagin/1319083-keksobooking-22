@@ -12,7 +12,7 @@ const QUANTITY_GUESTS_MIN = 1;
 const QUANTITY_GUESTS_MAX = 10;
 const CHECKIN_TIME = ['12:00', '13:00', '14:00'];
 const CHECKOUT_TIME = ['12:00', '13:00', '14:00'];
-const FEATURES_OFFER = ['wifi', 'dishwasher', 'parking','washer','elevator', 'conditioner'];
+const FEATURES_OFFER = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 const DESCRIPTION_OFFER = ['Тишина и покой для желающих отдохнуть', 'Красота и роскошь', 'Лучшее место для отдыха', 'Вдали от суеты'];
 const PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 const LATITUDE_MIN_X = 35.65000;
@@ -35,7 +35,7 @@ const createAd = function () {
       price: getRandomNumber(PRICE_MIN, PRICE_MAX),
       type: getRandomArrElement(PROPERTY_TYPE),
       rooms: getRandomNumber(AMOUNT_ROOMS_MIN, AMOUNT_ROOMS_MAX),
-      quests: getRandomNumber(QUANTITY_GUESTS_MIN, QUANTITY_GUESTS_MAX),
+      guests: getRandomNumber(QUANTITY_GUESTS_MIN, QUANTITY_GUESTS_MAX),
       checkin: getRandomArrElement(CHECKIN_TIME),
       checkout: getRandomArrElement(CHECKOUT_TIME),
       features: getRandomАrr(FEATURES_OFFER),
@@ -57,5 +57,6 @@ const createArrayAds = function () {
   }
   return arrAds;
 };
-
 createArrayAds();
+
+export {createArrayAds};
