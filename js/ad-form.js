@@ -5,16 +5,16 @@ const timeinSelect = adForm.querySelector('#timein');
 const timeoutSelect = adForm.querySelector('#timeout');
 const adFormAddress = adForm.querySelector('#address')
 
-const minPrice = {
-  bungalow : 0,
-  flat : 1000,
+const MinPrice = {
+  bungalow: 0,
+  flat: 1000,
   house: 5000,
-  palace : 10000,
+  palace: 10000,
 };
 
 
 housingTypeSelect.addEventListener('input', () => {
-  inputPrice.placeholder = minPrice[housingTypeSelect.value];
+  inputPrice.placeholder = MinPrice[housingTypeSelect.value];
 });
 
 timeinSelect.addEventListener('input', () => {
