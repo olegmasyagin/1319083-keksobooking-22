@@ -1,6 +1,6 @@
 //Нахождение случайного целого числа от и до включительно
 
-const getRandomNumber = function(min, max) {
+const getRandomNumber = (min, max) => {
   if(min >= 0 && max > min){
     return Math.floor(Math.random() * ((max-min) + 1) + min);
   }
@@ -9,7 +9,7 @@ const getRandomNumber = function(min, max) {
 
 //Нахождение случайного дробного числа с указанной точностью знаков после запятой.
 
-const getRandomFloatPoint = function(min, max, fix) {
+const getRandomFloatPoint = (min, max, fix) => {
   if(min >= 0 && max > min) {
     return (Math.random() * (max - min) + min).toFixed(fix);
   }
@@ -18,14 +18,14 @@ const getRandomFloatPoint = function(min, max, fix) {
 
 // Функция нахождения случайного элемента в массиве
 
-const getRandomArrElement = function (array) {
+const getRandomArrElement = (array) => {
   const element = array[getRandomNumber(0, array.length -1)];
   return element;
 }
 
 //Генерация массива случайной длины
 
-const getRandomАrr = function (array) {
+const getRandomАrr = (array) => {
   const index = getRandomNumber(0, array.length -1);
   const newArr = array.slice(index, index + getRandomNumber(1, array.length -1));
   return newArr;

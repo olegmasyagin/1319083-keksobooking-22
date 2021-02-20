@@ -1,6 +1,6 @@
 //Создание элемента
 
-const createElement = function (tagName, className, modifier, source) {
+const createElement = (tagName, className, modifier, source) => {
   const element = document.createElement(tagName);
   element.classList.add(className);
   if(modifier) {
@@ -15,32 +15,24 @@ const createElement = function (tagName, className, modifier, source) {
 
 //Добавлениe контента
 
-const assignContent = function (varName, value) {
-  if(value) {
-    varName.textContent = value;
-  }else{
-    varName.classList.add('hidden');
-  }
+const assignContent =  (varName, value) => {
+  value ? varName.textContent = value : varName.classList.add('hidden');
 };
 
 
 //Добавление src
 
-const assignContentSrc = function (varName, value) {
-  if(value) {
-    varName.src = value;
-  }else{
-    varName.classList.add('hidden');
-  }
+const assignContentSrc = (varName, value) => {
+  value ? varName.src = value : varName.classList.add('hidden');
 };
 
 //Рендер преимуществ
 
-const renderFeatures = function (offers, varName) {
+const renderFeatures = (offers, varName) => {
   if(offers) {
     varName.innerHTML = '';
 
-    offers.forEach(function(item) {
+    offers.forEach((item) => {
       const element = createElement('li', 'popup__feature', `popup__feature--${item}`);
       varName.appendChild(element);
     });
@@ -51,11 +43,11 @@ const renderFeatures = function (offers, varName) {
 
 //Рендер фотографий
 
-const renderPhotos = function (offers, varName) {
+const renderPhotos = (offers, varName) => {
   if(offers) {
     varName.innerHTML = '';
 
-    offers.forEach(function(item) {
+    offers.forEach((item) => {
       const photo = createElement('img', 'popup__photo', false, item);
       photo.width = 45;
       photo.height = 40;
