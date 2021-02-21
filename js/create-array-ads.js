@@ -21,7 +21,7 @@ const LONGITUDE_MIN_Y = 139.70000;
 const LONGITUDE_MAX_Y = 139.80000;
 
 
-const createAd = function () {
+const createAd = () => {
   const locationX = (getRandomFloatPoint(LATITUDE_MIN_X, LATITUDE_MAX_X, 5));
   const locationY = (getRandomFloatPoint(LONGITUDE_MIN_Y, LONGITUDE_MAX_Y, 5));
   return {
@@ -50,7 +50,7 @@ const createAd = function () {
   }
 };
 
-const createArrayAds = function () {
+const createArrayAds = () => {
   const arrAds = [];
   for (let i = 0; i < AMOUNT_OBJECTS; i++) {
     arrAds.push(createAd());
