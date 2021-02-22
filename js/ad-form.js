@@ -7,6 +7,9 @@ const adFormAddress = adForm.querySelector('#address');
 const numberRooms = adForm.querySelector('#room_number');
 const capacityRooms = adForm.querySelector('#capacity');
 const titleAdInput = adForm.querySelector('#title');
+const mapFilters = document.querySelector('.map__filters');
+const mapFiltersFields = mapFilters.querySelectorAll('label, input, select');
+const adFormFields = adForm.querySelectorAll('label, input, select, textarea, button');
 
 const MinPrice = {
   bungalow: 0,
@@ -18,23 +21,32 @@ const MinPrice = {
 const MIN_DESC_LENGTH = 30;
 const MAX_DESC_LENGTH = 100;
 
-const checkingRoomsAndGuests = (rooms, guests) => {
-  if (rooms.value === '1' && rooms.value !== guests.value ) {
-    guests.setCustomValidity('1 комната - «для 1 гостя»');
-  }else if (rooms.value === '2' && guests.value !== '2' && guests.value !== '1') {
-    guests.setCustomValidity('2 комнаты — «для 2 гостей» или «для 1 гостя»');
-  }else if (rooms.value === '3' && guests.value !== '3' && guests.value !== '2' && guests.value !== '1') {
-    guests.setCustomValidity('3 комнаты — «для 3 гостей», «для 2 гостей» или «для 1 гостя»');
-  }else if (rooms.value === '100' && guests.value !== '0') {
-    guests.setCustomValidity('100 комнат — «не для гостей»');
-  }else{
-    guests.setCustomValidity('');
-  }
+const roomValues = {
+  1: [1],
+  2: [1, 2],
+  3: [1, 2, 3],
+  100: [0],
+};
 
-  guests.reportValidity();
-}
+const onRoomsNumberSelect = (peopleAmount) => {
+  const seatingCapacityOptions = capacityRooms.querySelectorAll('option');
 
-titleAdInput.addEventListener('input' , () => {
+  seatingCapacityOptions.forEach((option) => {
+    option.disabled = true;
+  });
+
+  roomValues[peopleAmount].forEach((seatsAmount) => {
+    seatingCapacityOptions.forEach((option) => {
+      if (Number(option.value) === seatsAmount) {
+        option.disabled = false;
+        option.selected = true;
+      }
+    });
+  });
+};
+
+
+const onTitleChange = () => {
   const valueLength = titleAdInput.value.length;
 
   if (valueLength < MIN_DESC_LENGTH) {
@@ -46,16 +58,15 @@ titleAdInput.addEventListener('input' , () => {
   }
 
   titleAdInput.reportValidity();
-} );
+};
 
 numberRooms.addEventListener('input', () => {
-  checkingRoomsAndGuests(numberRooms, capacityRooms);
+  onRoomsNumberSelect(numberRooms.value);
 });
 
-capacityRooms.addEventListener('input', () => {
-  checkingRoomsAndGuests(numberRooms, capacityRooms);
+titleAdInput.addEventListener('input', () => {
+  onTitleChange();
 });
-
 
 housingTypeSelect.addEventListener('input', () => {
   inputPrice.placeholder = MinPrice[housingTypeSelect.value];
@@ -68,10 +79,6 @@ timeinSelect.addEventListener('input', () => {
 timeoutSelect.addEventListener('input', () => {
   timeinSelect.value = timeoutSelect.value;
 });
-
-const mapFilters = document.querySelector('.map__filters');
-const mapFiltersFields = mapFilters.querySelectorAll('label, input, select');
-const adFormFields = adForm.querySelectorAll('label, input, select, textarea, button');
 
 let className = undefined;
 

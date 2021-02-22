@@ -16,6 +16,7 @@ const DECIMAL_PLACE = 5;
 const map = L.map('map-canvas')
   .on('load', () => {
     activatePage();
+    adFormAddress.value = `${CENTER_TOKYO_LAT}, ${CENTER_TOKYO_LNG}`;
   })
   .setView({
     lat: CENTER_TOKYO_LAT,
