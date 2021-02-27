@@ -1,7 +1,5 @@
-import { createArrayAds } from './create-array-ads.js';
 import { assignContent, assignContentSrc, renderPhotos, renderFeatures } from './card.js';
 
-const similarAds = createArrayAds();
 const similarCard = document.querySelector('#card').content.querySelector('.popup');
 const HousingTypes = {
   flat: 'Квартира',
@@ -51,5 +49,5 @@ const createCard = ((descriptionAd) =>{
   return card;
 });
 
-export { createCard, similarAds };
+export { createCard };
 
