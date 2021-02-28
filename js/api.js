@@ -2,7 +2,7 @@ const getServerData = (onSuccess, onError) => {
   return fetch('https://22.javascript.pages.academy/keksobooking/data')
     .then((response) => response.json())
     .then(onSuccess)
-    .catch(onError('Данные от сервера не получены. Обновите страницу'));
+    .catch(onError);
 };
 
 const sendUserData = (onSuccess, onError, body) => {
@@ -19,6 +19,9 @@ const sendUserData = (onSuccess, onError, body) => {
       }
       onError();
     })
+    .catch(() => {
+      onError();
+    });
 };
 
 export { getServerData, sendUserData };

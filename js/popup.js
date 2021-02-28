@@ -5,18 +5,18 @@ const mainDocument = document.querySelector('main');
 const templateSucces = document.querySelector('#success').content.querySelector('.success');
 const templateError = document.querySelector('#error').content.querySelector('.error');
 
-const displayMessage = (message) => {
+const displayMessage = () => {
   const messageContainer = document.createElement('div');
   messageContainer.style.position = 'fixed';
   messageContainer.style.top = '0';
   messageContainer.style.right = '0';
   messageContainer.style.left = '0';
-  messageContainer.style.zIndex = '50';
+  messageContainer.style.zIndex = '500';
   messageContainer.style.padding = '10px 3px';
   messageContainer.style.textAlign = 'center';
-  messageContainer.style.color = 'white';
+  messageContainer.style.color = 'red';
 
-  messageContainer.textContent = message;
+  messageContainer.textContent = 'Данные от сервера не получены. Обновите страницу';
 
   document.body.append(messageContainer);
 
@@ -49,11 +49,13 @@ const createPopup = (typePopup) => {
 };
 
 const showSuccessDispatch = () => {
+  templateSucces.style.zIndex = '500';
   const successDispatch = templateSucces.cloneNode(true);
   createPopup(successDispatch);
 };
 
 const showErrorDispatch = () => {
+  templateError.style.zIndex = '500';
   const errorDispatch = templateError.cloneNode(true);
   createPopup(errorDispatch);
 };
