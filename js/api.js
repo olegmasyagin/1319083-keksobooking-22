@@ -1,12 +1,8 @@
 const getServerData = (onSuccess, onError) => {
-  fetch('https://22.javascript.pages.academy/keksobooking/data')
+  return fetch('https://22.javascript.pages.academy/keksobooking/data')
     .then((response) => response.json())
-    .then((data) => {
-      onSuccess(data);
-    })
-    .catch(() => {
-      onError('Данные от сервера не получены. Обновите страницу.');
-    });
+    .then(onSuccess)
+    .catch(onError('Данные от сервера не получены. Обновите страницу'));
 };
 
 const sendUserData = (onSuccess, onError, body) => {
@@ -19,14 +15,10 @@ const sendUserData = (onSuccess, onError, body) => {
   )
     .then((response) => {
       if (response.ok) {
-        onSuccess();
-      } else {
-        onError();
+        return onSuccess();
       }
-    })
-    .catch(() => {
       onError();
-    });
+    })
 };
 
 export { getServerData, sendUserData };
