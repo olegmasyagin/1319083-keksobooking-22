@@ -57,6 +57,5 @@ const createArrayAds = () => {
   }
   return arrAds;
 };
-createArrayAds();
 
-export {createArrayAds};
+createArrayAds();

@@ -1,4 +1,9 @@
+import { resetMarkerPosition } from './map.js';
+import { sendUserData } from './api.js';
+import { showErrorDispatch, showSuccessDispatch} from './popup.js';
+
 const adForm = document.querySelector('.ad-form');
+const resetAdForm = document.querySelector('.ad-form__reset')
 const housingTypeSelect = adForm.querySelector('#type');
 const inputPrice = adForm.querySelector('#price');
 const timeinSelect = adForm.querySelector('#timein');
@@ -21,7 +26,7 @@ const MinPrice = {
 const MIN_DESC_LENGTH = 30;
 const MAX_DESC_LENGTH = 100;
 
-const roomValues = {
+const RoomValues = {
   1: [1],
   2: [1, 2],
   3: [1, 2, 3],
@@ -35,7 +40,7 @@ const onRoomsNumberSelect = (peopleAmount) => {
     option.disabled = true;
   });
 
-  roomValues[peopleAmount].forEach((seatsAmount) => {
+  RoomValues[peopleAmount].forEach((seatsAmount) => {
     seatingCapacityOptions.forEach((option) => {
       if (Number(option.value) === seatsAmount) {
         option.disabled = false;
@@ -44,7 +49,6 @@ const onRoomsNumberSelect = (peopleAmount) => {
     });
   });
 };
-
 
 const onTitleChange = () => {
   const valueLength = titleAdInput.value.length;
@@ -68,8 +72,10 @@ titleAdInput.addEventListener('input', () => {
   onTitleChange();
 });
 
+
 housingTypeSelect.addEventListener('input', () => {
   inputPrice.placeholder = MinPrice[housingTypeSelect.value];
+  inputPrice.min = MinPrice[housingTypeSelect.value];
 });
 
 timeinSelect.addEventListener('input', () => {
@@ -86,7 +92,6 @@ const changeClassName = () => {
   mapFilters ? className = 'map__filters--disabled' : className = 'ad-form--disabled';
 }
 
-//Отключение формы
 const disableForm = (form, fields) => {
   changeClassName();
   form.classList.add(className);
@@ -95,7 +100,6 @@ const disableForm = (form, fields) => {
   })
 };
 
-//Включение формы
 const enableForm = (form, fields) => {
   changeClassName();
   form.classList.remove(className);
@@ -104,13 +108,11 @@ const enableForm = (form, fields) => {
   })
 };
 
-//Деактивация страницы
 const deactivatePage = () => {
   disableForm(adForm, adFormFields);
   disableForm(mapFilters, mapFiltersFields);
 }
 
-//Активация страницы
 const activatePage = () => {
   enableForm(adForm, adFormFields);
   enableForm(mapFilters, mapFiltersFields);
@@ -118,4 +120,17 @@ const activatePage = () => {
 
 deactivatePage();
 
-export {activatePage, adFormAddress};
+adForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  sendUserData(showSuccessDispatch, showErrorDispatch, new FormData(evt.target));
+  adForm.reset();
+});
+
+resetAdForm.addEventListener('click', (evt) =>{
+  evt.preventDefault();
+  adForm.reset();
+  mapFilters.reset();
+  resetMarkerPosition();
+});
+
+export { activatePage, adFormAddress, adForm };
