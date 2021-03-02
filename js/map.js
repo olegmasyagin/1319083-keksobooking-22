@@ -2,7 +2,9 @@ import { activatePage, adFormAddress} from './ad-form.js';
 import { createCard } from './render-popup.js';
 import { getServerData } from './api.js';
 import { displayMessage } from './popup.js';
+import { getFilteredAds, setFilterChange, setFilterReset} from './filter.js';
 
+const AMOUNT_ADS = 10;
 const SCALE_MAP = 10;
 const MAIN_PIN_SRC = '../img/main-pin.svg';
 const MAIN_PIN_SIZE = [52, 52];
@@ -40,6 +42,12 @@ const mainPinIcon = L.icon({
   iconAnchor: MAIN_PIN_ANCHOR,
 });
 
+const regularPin = L.icon ({
+  iconUrl: REGULAR_PIN_SRC,
+  iconSize: REGULAR_PIN_SIZE,
+  iconAnchor: REGULAR_PIN_ANCHOR,
+});
+
 const  mainPinMarker = L.marker(
   {
     lat: CENTER_TOKYO.lat,
@@ -55,39 +63,42 @@ mainPinMarker.on('moveend', (evt) => {
   adFormAddress.value = `${evt.target.getLatLng().lat.toFixed(DECIMAL_PLACE)}, ${evt.target.getLatLng().lng.toFixed(DECIMAL_PLACE)}`;
 });
 
+let markers = [];
+
 const createRegularPin = similarAds => {
+  markers.forEach((item) => item.remove());
 
-  similarAds.forEach((descriptionAd) => {
-    const {location} = descriptionAd;
+  similarAds
+    .slice()
+    .filter(getFilteredAds)
+    .slice(0, AMOUNT_ADS)
+    .forEach((descriptionAd) => {
+      const {location} = descriptionAd;
 
-    const regularPin = L.icon ({
-      iconUrl: REGULAR_PIN_SRC,
-      iconSize: REGULAR_PIN_SIZE,
-      iconAnchor: REGULAR_PIN_ANCHOR,
-    });
-
-    const marker = L.marker (
-      {
-        lat: location.lat,
-        lng: location.lng,
-      },
-      {
-        regularPin,
-      },
-    );
-
-    marker
-      .addTo(map)
-      .bindPopup(
-        createCard(descriptionAd),
+      const marker = L.marker (
         {
-          keepInView: true,
+          lat: location.lat,
+          lng: location.lng,
+        },
+        {
+          icon:regularPin,
         },
       );
-  });
+
+      marker
+        .addTo(map)
+        .bindPopup(
+          createCard(descriptionAd));
+
+      markers.push(marker);
+    });
 };
 
-getServerData(createRegularPin, displayMessage);
+getServerData((data) => {
+  createRegularPin(data);
+  setFilterReset(() => createRegularPin(data));
+  setFilterChange(() => createRegularPin(data));
+}, displayMessage);
 
 const resetMarkerPosition = () => {
   map.setView(CENTER_TOKYO, SCALE_MAP);
