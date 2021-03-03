@@ -1,9 +1,12 @@
+/* global L:readonly */
+/* global _:readonly */
 import { activatePage, adFormAddress} from './ad-form.js';
 import { createCard } from './render-popup.js';
 import { getServerData } from './api.js';
 import { displayMessage } from './popup.js';
 import { getFilteredAds, setFilterChange, setFilterReset} from './filter.js';
 
+const RERENDER_DELAY = 500;
 const AMOUNT_ADS = 10;
 const SCALE_MAP = 10;
 const MAIN_PIN_SRC = '../img/main-pin.svg';
@@ -18,7 +21,6 @@ const CENTER_TOKYO = {
   lng: '139.75708',
 }
 
-/* global L:readonly */
 const map = L.map('map-canvas')
   .on('load', () => {
     activatePage();
@@ -97,7 +99,9 @@ const createRegularPin = similarAds => {
 getServerData((data) => {
   createRegularPin(data);
   setFilterReset(() => createRegularPin(data));
-  setFilterChange(() => createRegularPin(data));
+  setFilterChange(_.debounce(
+    () => createRegularPin(data)),
+  RERENDER_DELAY)
 }, displayMessage);
 
 const resetMarkerPosition = () => {
