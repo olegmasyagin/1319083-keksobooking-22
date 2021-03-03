@@ -96,12 +96,12 @@ const createRegularPin = similarAds => {
     });
 };
 
+const renderPins = (data) => () => createRegularPin(data);
+
 getServerData((data) => {
   createRegularPin(data);
   setFilterReset(() => createRegularPin(data));
-  setFilterChange(_.debounce(
-    () => createRegularPin(data)),
-  RERENDER_DELAY)
+  setFilterChange(_.debounce(renderPins(data), RERENDER_DELAY));
 }, displayMessage);
 
 const resetMarkerPosition = () => {
