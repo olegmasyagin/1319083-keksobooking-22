@@ -187,6 +187,7 @@ adForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   sendUserData(showSuccessDispatch, showErrorDispatch, new FormData(evt.target));
   adForm.reset();
+  resetAllPreviews();
 });
 
 resetAdForm.addEventListener('click', (evt) =>{
