@@ -16,6 +16,69 @@ const mapFilters = document.querySelector('.map__filters');
 const mapFiltersFields = mapFilters.querySelectorAll('label, input, select');
 const adFormFields = adForm.querySelectorAll('label, input, select, textarea, button');
 
+const FILE__TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+const PHOTO_WIDTH = 70;
+const PHOTO_HEIGHT = 70;
+const AVATAR_DEFAULT = 'img/muffin-grey.svg';
+
+const avatarChooser = document.querySelector('.ad-form__field input[type=file]');
+const avatarPreview = document.querySelector('.ad-form-header__preview img');
+const housingPhotoChooser = document.querySelector('.ad-form__upload input[type=file]');
+const housingPhotoPreview = document.querySelector('.ad-form__photo-container');
+
+avatarChooser.addEventListener('change', () => {
+  const avatar = avatarChooser.files[0];
+  const avatarName = avatar.name.toLowerCase();
+
+  const matches = FILE__TYPES.some((it) => {
+    return avatarName.endsWith(it);
+  });
+
+  if(matches) {
+    const reader = new FileReader();
+
+    reader.addEventListener('load', () => {
+      avatarPreview.src = reader.result;
+    });
+
+    reader.readAsDataURL(avatar);
+  }
+});
+
+housingPhotoChooser.addEventListener('change', () =>{
+  const housing = housingPhotoChooser.files[0];
+  const housingName = housing.name.toLowerCase();
+
+  const matches = FILE__TYPES.some((it) => {
+    return housingName.endsWith(it);
+  });
+
+  if(matches) {
+    const reader = new FileReader();
+
+    reader.addEventListener('load', () => {
+      const photoContainer = document.createElement('div');
+      photoContainer.classList.add('ad-form__photo');
+      const housingPhoto = document.createElement('img');
+      housingPhoto.width = PHOTO_WIDTH;
+      housingPhoto.height = PHOTO_HEIGHT;
+      housingPhoto.src = reader.result;
+      housingPhotoPreview.appendChild(photoContainer);
+      photoContainer.appendChild(housingPhoto);
+    });
+
+    reader.readAsDataURL(housing);
+  }
+});
+
+const resetAllPreviews = () => {
+  avatarPreview.src = AVATAR_DEFAULT;
+  while (housingPhotoPreview.children.length > 2) {
+    housingPhotoPreview.removeChild(housingPhotoPreview.lastChild);
+  }
+};
+
+
 const MinPrice = {
   bungalow: 0,
   flat: 1000,
@@ -124,6 +187,7 @@ adForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   sendUserData(showSuccessDispatch, showErrorDispatch, new FormData(evt.target));
   adForm.reset();
+  resetAllPreviews();
 });
 
 resetAdForm.addEventListener('click', (evt) =>{
@@ -131,6 +195,7 @@ resetAdForm.addEventListener('click', (evt) =>{
   adForm.reset();
   mapFilters.reset();
   resetMarkerPosition();
+  resetAllPreviews();
 });
 
 export { activatePage, adFormAddress, adForm, mapFilters };
