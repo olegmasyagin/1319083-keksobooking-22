@@ -1,7 +1,7 @@
 import { assignContent, assignContentSrc, renderPhotos, renderFeatures } from './card.js';
 
 const similarCard = document.querySelector('#card').content.querySelector('.popup');
-const HousingTypes = {
+const housingTypes = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
   house: 'Дом',
@@ -24,7 +24,7 @@ const createCard = ((descriptionAd) =>{
   assignContent(popupTextPrice, concatenationPrice);
 
   const popupType = card.querySelector('.popup__type');
-  assignContent(popupType, HousingTypes[offer.type]);
+  assignContent(popupType, housingTypes[offer.type]);
 
   const popupTextCapacity = card.querySelector('.popup__text--capacity');
   const concatenationCapacity = offer.rooms + ' комнаты для ' + offer.guests + ' гостей';

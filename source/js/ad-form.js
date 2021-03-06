@@ -79,7 +79,7 @@ const resetAllPreviews = () => {
 };
 
 
-const MinPrice = {
+const minPrice = {
   bungalow: 0,
   flat: 1000,
   house: 5000,
@@ -89,7 +89,7 @@ const MinPrice = {
 const MIN_DESC_LENGTH = 30;
 const MAX_DESC_LENGTH = 100;
 
-const RoomValues = {
+const roomValues = {
   1: [1],
   2: [1, 2],
   3: [1, 2, 3],
@@ -103,7 +103,7 @@ const onRoomsNumberSelect = (peopleAmount) => {
     option.disabled = true;
   });
 
-  RoomValues[peopleAmount].forEach((seatsAmount) => {
+  roomValues[peopleAmount].forEach((seatsAmount) => {
     seatingCapacityOptions.forEach((option) => {
       if (Number(option.value) === seatsAmount) {
         option.disabled = false;
@@ -137,8 +137,8 @@ titleAdInput.addEventListener('input', () => {
 
 
 housingTypeSelect.addEventListener('input', () => {
-  inputPrice.placeholder = MinPrice[housingTypeSelect.value];
-  inputPrice.min = MinPrice[housingTypeSelect.value];
+  inputPrice.placeholder = minPrice[housingTypeSelect.value];
+  inputPrice.min = minPrice[housingTypeSelect.value];
 });
 
 timeinSelect.addEventListener('input', () => {
