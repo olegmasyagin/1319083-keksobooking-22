@@ -1,5 +1,6 @@
-/* global L:readonly */
 /* global _:readonly */
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import { activatePage, adFormAddress} from './ad-form.js';
 import { createCard } from './render-popup.js';
 import { getServerData } from './api.js';
