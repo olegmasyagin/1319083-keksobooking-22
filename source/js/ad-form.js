@@ -1,6 +1,6 @@
 import { resetMarkerPosition } from './map.js';
 import { sendUserData } from './api.js';
-import { showErrorDispatch, showSuccessDispatch} from './popup.js';
+import { showErrorDispatch, showSuccessDispatch} from './popups.js';
 
 const adForm = document.querySelector('.ad-form');
 const resetAdForm = document.querySelector('.ad-form__reset')

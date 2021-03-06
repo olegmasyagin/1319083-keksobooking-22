@@ -4,7 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import { activatePage, adFormAddress} from './ad-form.js';
 import { createCard } from './render-popup.js';
 import { getServerData } from './api.js';
-import { displayMessage } from './popup.js';
+import { displayMessage } from './popups.js';
 import { getFilteredAds, setFilterChange, setFilterReset} from './filter.js';
 
 const RERENDER_DELAY = 500;

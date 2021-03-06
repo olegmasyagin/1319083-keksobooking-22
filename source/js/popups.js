@@ -1,5 +1,3 @@
-import { isEscEvent } from './util.js';
-
 const POPUP_DISPLAY_TIME = 5000;
 const mainDocument = document.querySelector('main');
 const templateSucces = document.querySelector('#success').content.querySelector('.success');
@@ -23,6 +21,10 @@ const displayMessage = () => {
   setTimeout(() => {
     messageContainer.remove();
   }, POPUP_DISPLAY_TIME)
+};
+
+const isEscEvent = (evt) => {
+  return evt.key === ('Escape' || 'Esc');
 };
 
 const createPopup = (typePopup) => {
