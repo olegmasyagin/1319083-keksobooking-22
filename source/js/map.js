@@ -112,4 +112,4 @@ const resetMarkerPosition = () => {
   adFormAddress.value = `${CENTER_TOKYO.lat}, ${CENTER_TOKYO.lng}`;
 }
 
-export { resetMarkerPosition };
+export { resetMarkerPosition, CENTER_TOKYO };

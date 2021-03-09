@@ -1,12 +1,13 @@
 import { assignContent, assignContentSrc, renderPhotos, renderFeatures } from './card.js';
 
-const similarCard = document.querySelector('#card').content.querySelector('.popup');
 const housingTypes = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
   house: 'Дом',
   palace: 'Дворец',
 }
+
+const similarCard = document.querySelector('#card').content.querySelector('.popup');
 
 const createCard = ((descriptionAd) =>{
 

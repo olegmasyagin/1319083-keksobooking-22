@@ -1,6 +1,28 @@
-import { resetMarkerPosition } from './map.js';
+import { resetMarkerPosition, CENTER_TOKYO } from './map.js';
 import { sendUserData } from './api.js';
 import { showErrorDispatch, showSuccessDispatch} from './popups.js';
+
+const MIN_DESC_LENGTH = 30;
+const MAX_DESC_LENGTH = 100;
+
+const FILE__TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+const PHOTO_WIDTH = 70;
+const PHOTO_HEIGHT = 70;
+const AVATAR_DEFAULT = 'img/muffin-grey.svg';
+
+const minPrice = {
+  bungalow: 0,
+  flat: 1000,
+  house: 5000,
+  palace: 10000,
+};
+
+const roomValues = {
+  1: [1],
+  2: [1, 2],
+  3: [1, 2, 3],
+  100: [0],
+};
 
 const adForm = document.querySelector('.ad-form');
 const resetAdForm = document.querySelector('.ad-form__reset')
@@ -15,11 +37,6 @@ const titleAdInput = adForm.querySelector('#title');
 const mapFilters = document.querySelector('.map__filters');
 const mapFiltersFields = mapFilters.querySelectorAll('label, input, select');
 const adFormFields = adForm.querySelectorAll('label, input, select, textarea, button');
-
-const FILE__TYPES = ['gif', 'jpg', 'jpeg', 'png'];
-const PHOTO_WIDTH = 70;
-const PHOTO_HEIGHT = 70;
-const AVATAR_DEFAULT = 'img/muffin-grey.svg';
 
 const avatarChooser = document.querySelector('.ad-form__field input[type=file]');
 const avatarPreview = document.querySelector('.ad-form-header__preview img');
@@ -78,24 +95,6 @@ const resetAllPreviews = () => {
   }
 };
 
-
-const minPrice = {
-  bungalow: 0,
-  flat: 1000,
-  house: 5000,
-  palace: 10000,
-};
-
-const MIN_DESC_LENGTH = 30;
-const MAX_DESC_LENGTH = 100;
-
-const roomValues = {
-  1: [1],
-  2: [1, 2],
-  3: [1, 2, 3],
-  100: [0],
-};
-
 const onRoomsNumberSelect = (peopleAmount) => {
   const seatingCapacityOptions = capacityRooms.querySelectorAll('option');
 
@@ -134,7 +133,6 @@ numberRooms.addEventListener('input', () => {
 titleAdInput.addEventListener('input', () => {
   onTitleChange();
 });
-
 
 housingTypeSelect.addEventListener('input', () => {
   inputPrice.placeholder = minPrice[housingTypeSelect.value];
@@ -188,6 +186,7 @@ adForm.addEventListener('submit', (evt) => {
   sendUserData(showSuccessDispatch, showErrorDispatch, new FormData(evt.target));
   adForm.reset();
   resetAllPreviews();
+  adFormAddress.value = `${CENTER_TOKYO.lat}, ${CENTER_TOKYO.lng}`;
 });
 
 resetAdForm.addEventListener('click', (evt) =>{

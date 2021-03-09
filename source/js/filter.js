@@ -1,5 +1,8 @@
 import { mapFilters } from './ad-form.js';
 
+const LOW_PRICE = 10000;
+const HIGH_PRICE = 50000;
+
 const filterType = mapFilters.querySelector('#housing-type');
 const filterPrice = mapFilters.querySelector('#housing-price');
 const filterRooms = mapFilters.querySelector('#housing-rooms');
@@ -7,14 +10,10 @@ const filterGuests = mapFilters.querySelector('#housing-guests');
 const filterFeatures = mapFilters.querySelector('#housing-features');
 
 const getPriceFilter = (data) => {
-
-  const lowPrice = 10000;
-  const highPrice = 50000;
-
   switch (filterPrice.value) {
-    case 'low': return data.offer.price < lowPrice;
-    case 'middle': return data.offer.price > lowPrice && data.offer.price < highPrice;
-    case 'high': return data.offer.price > highPrice;
+    case 'low': return data.offer.price < LOW_PRICE;
+    case 'middle': return data.offer.price > LOW_PRICE && data.offer.price < HIGH_PRICE;
+    case 'high': return data.offer.price > HIGH_PRICE;
     default: return true;
   }
 };
@@ -28,11 +27,7 @@ const checkedRooms = (data) => {
 };
 
 const checkedGuests = (data) => {
-  if(filterGuests.value !== 'any') {
-    return data.offer.guests === parseInt(filterGuests.value, 10);
-  }
-
-  return true;
+  return (filterGuests.value !== 'any') ? data.offer.guests === parseInt(filterGuests.value, 10) : true;
 }
 
 const selectFeatures = (data) => {
@@ -47,7 +42,6 @@ const selectFeatures = (data) => {
   return result;
 }
 
-
 const getFilteredAds = (data) => {
   return (
     checkedType(data) &&
@@ -57,7 +51,6 @@ const getFilteredAds = (data) => {
     getPriceFilter(data)
   )
 }
-
 
 const setFilterChange = (cb) => {
   mapFilters.addEventListener('change', () =>{
@@ -73,4 +66,4 @@ const setFilterReset = (cb) => {
   });
 };
 
-export { getFilteredAds, setFilterChange, setFilterReset};
+export { getFilteredAds, setFilterChange, setFilterReset };
