@@ -62,4 +62,4 @@ const showErrorDispatch = () => {
   createPopup(errorDispatch);
 };
 
-export { displayMessage, showErrorDispatch, showSuccessDispatch };
+export {displayMessage, showErrorDispatch, showSuccessDispatch};

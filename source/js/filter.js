@@ -1,4 +1,4 @@
-import { mapFilters } from './ad-form.js';
+import {mapFilters} from './ad-form.js';
 
 const LOW_PRICE = 10000;
 const HIGH_PRICE = 50000;
@@ -33,7 +33,7 @@ const checkedGuests = (data) => {
 const selectFeatures = (data) => {
   let result = true;
 
-  filterFeatures.querySelectorAll('input:checked').forEach((item) =>{
+  filterFeatures.querySelectorAll('input:checked').forEach((item) => {
     if(data.indexOf(item.value) === -1) {
       result = false;
     }
@@ -53,7 +53,7 @@ const getFilteredAds = (data) => {
 }
 
 const setFilterChange = (cb) => {
-  mapFilters.addEventListener('change', () =>{
+  mapFilters.addEventListener('change', () => {
     cb();
   });
 };
@@ -66,4 +66,4 @@ const setFilterReset = (cb) => {
   });
 };
 
-export { getFilteredAds, setFilterChange, setFilterReset };
+export {getFilteredAds, setFilterChange, setFilterReset};

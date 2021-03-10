@@ -24,4 +24,4 @@ const sendUserData = (onSuccess, onError, body) => {
     });
 };
 
-export { getServerData, sendUserData };
+export {getServerData, sendUserData};

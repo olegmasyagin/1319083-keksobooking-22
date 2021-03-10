@@ -1,11 +1,11 @@
-import { assignContent, assignContentSrc, renderPhotos, renderFeatures } from './card.js';
+import {assignContent, assignContentSrc, renderPhotos, renderFeatures} from './card.js';
 
 const housingTypes = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
   house: 'Дом',
   palace: 'Дворец',
-}
+};
 
 const similarCard = document.querySelector('#card').content.querySelector('.popup');
 
@@ -50,5 +50,5 @@ const createCard = ((descriptionAd) =>{
   return card;
 });
 
-export { createCard };
+export {createCard};
 

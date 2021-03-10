@@ -1,6 +1,6 @@
-import { resetMarkerPosition, CENTER_TOKYO } from './map.js';
-import { sendUserData } from './api.js';
-import { showErrorDispatch, showSuccessDispatch} from './popups.js';
+import {resetMarkerPosition, CENTER_TOKYO} from './map.js';
+import {sendUserData } from './api.js';
+import {showErrorDispatch, showSuccessDispatch} from './popups.js';
 
 const MIN_DESC_LENGTH = 30;
 const MAX_DESC_LENGTH = 100;
